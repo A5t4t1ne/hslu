@@ -1,0 +1,16 @@
+{
+	"nodes":[
+		{"id":"4594af60711db36b","x":-600,"y":-42,"width":300,"height":172,"color":"4","type":"group","label":"Master (Listener)"},
+		{"id":"90f1e2da5761c747","x":-200,"y":-42,"width":300,"height":172,"color":"2","type":"group","label":"Slave (Handler)"},
+		{"id":"f949acefda9d6531","type":"text","text":"Warten auf Auftrag","x":-580,"y":-22,"width":260,"height":50,"color":"4"},
+		{"id":"3f14080f93647fd4","type":"text","text":"separaten Slave starten","x":-580,"y":60,"width":260,"height":50,"color":"4"},
+		{"id":"39e70f1e232dbe20","type":"text","text":"Auftrag ausführen","x":-180,"y":-22,"width":260,"height":50,"color":"2"},
+		{"id":"1e6b09659e1e1415","type":"text","text":"Ergebnis zurückgeben","x":-180,"y":60,"width":260,"height":50,"color":"2"}
+	],
+	"edges":[
+		{"id":"6e7e363ba3ee18fd","fromNode":"f949acefda9d6531","fromSide":"bottom","toNode":"3f14080f93647fd4","toSide":"top"},
+		{"id":"1c5aca79f0a615f9","fromNode":"3f14080f93647fd4","fromSide":"right","toNode":"f949acefda9d6531","toSide":"right"},
+		{"id":"f7f5858f04d38dce","fromNode":"3f14080f93647fd4","fromSide":"right","toNode":"39e70f1e232dbe20","toSide":"left"},
+		{"id":"ab4636d2009d41b1","fromNode":"39e70f1e232dbe20","fromSide":"bottom","toNode":"1e6b09659e1e1415","toSide":"top"}
+	]
+}
