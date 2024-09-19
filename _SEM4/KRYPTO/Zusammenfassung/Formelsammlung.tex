@@ -26,7 +26,9 @@
 
 \usepackage{listings}
 
-\usepackage{textcomp} % permille
+% permille
+\usepackage{textcomp} 
+\usepackage{wasysym}
 
 \usepackage{pdfpages} % for including pdfs
 
@@ -755,13 +757,13 @@ Für x = 6: keine \\
 
 \textbf{Beispiel:}\\
 
-Kurve: $E: \space y^2 \equiv x^3 + x + 1$ über $\mathbb{Z}_{19}$
-Punkt : $Q(15, 13)$
+Kurve: $E: \quad y^2 \equiv x^3 + x + 1$ über $\mathbb{Z}_{19}$
+Punkt: $Q(15, 13)$
 
 \begin{enumerate}
     \item Punkt in Gleichung einsetzen
-    \item Links von Gleichung ausrechnen mod p
-    \item Rechts von Gleichung ausrechnen mod p
+    \item Links von Gleichung ausrechnen $\mod p$
+    \item Rechts von Gleichung ausrechnen $\mod p$
     \item Vergleichen
 \end{enumerate}
 
@@ -773,7 +775,6 @@ Punkt : $Q(15, 13)$
 \end{align}
 
 Da beide Seiten gleich sind, ist der Punkt auf der Kurve.
-
 
 
 \newpage
@@ -796,13 +797,13 @@ Ablauf beim Signieren:
 Ist eine Annäherungsformel, berechnet die Anzahl der Primzahlen in $1$ bis $x$ berechnen:
 
 \begin{equation*}
-    \pi(x) \approx \frac{x}{\ln(x)} \\
+    \pi(x) \approx \frac{x}{\ln(x)}
 \end{equation*}
 
 Nur ungerade Primzahlen von 1 bis $x$:
 
 \begin{equation*}
-    APZ(x) = \frac{Anz. PZ}{Anz. ungerade Z.} \approx \frac{\displaystyle{\frac{x}{ln(x)}}}{ \displaystyle{\frac{x}{2} }} = \frac{2}{ln(x)}\\
+    APZ(x) = \frac{Anz. PZ}{Anz. ungerade Z.} \approx \frac{\displaystyle{\frac{x}{ln(x)}}}{ \displaystyle{\frac{x}{2} }} = \frac{2}{ln(x)}
 \end{equation*}
 
 
@@ -811,11 +812,9 @@ Beispiel:
 \begin{align*}
     \pi(10^{150}) &\approx \frac{10^{150}}{\ln(10^{150})} = \frac{10^{150}}{150 \cdot ln(10)} 
     \approx \frac{10^{150}}{345} \approx \frac{10^{150}}{3.5 \cdot 10^2} = \frac{10 \cdot 10^{149}}{3.5 \cdot 10^2}
-    = \frac{10 \cdot 10^{147}}{3.5} \approx 2.9 \cdot 10^{147} \\
-    APZ(10^{150}) &\approx \frac{2}{ln(10^{150})} = \frac{2}{150 \cdot ln(10)} \approx \frac{2}{345} = 0.0058 = 0.58\% = 5.8 \text{\textperthousand} \\
+    = \frac{10 \cdot 10^{147}}{3.5} \approx 2.9 \cdot 10^{147}
+    APZ(10^{150}) &\approx \frac{2}{ln(10^{150})} = \frac{2}{150 \cdot ln(10)} \approx \frac{2}{345} = 0.0058 = 0.58\% = 5.8 \permil
 \end{align*}
-
-
 
 \subsubsection{Anzahl n-stelligen Primzahlen}
 
@@ -836,7 +835,7 @@ Anteil der n-stelligen PZ. in den n-stelligen ungeraden Zahlen:
 $n = 150 \Rightarrow x = 10^{150}$ \\
 
 \begin{equation*}
-    \pi(10^{150}) - \pi(10^{149}) = \frac{10^{150}}{ln(10^{150})} - \frac{10^{149}}{ln(10^{149})} \approx 2.6 \cdot 10^{147} \\
+    \pi(10^{150}) - \pi(10^{149}) = \frac{10^{150}}{ln(10^{150})} - \frac{10^{149}}{ln(10^{149})} \approx 2.6 \cdot 10^{147}
 \end{equation*}
 
 
