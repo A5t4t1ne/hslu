@@ -1,0 +1,9 @@
+[submodule "/home/dave/hslu/SEM5/COBAU/cobau"]
+	path = /home/dave/hslu/SEM5/COBAU/cobau
+	url = https://github.com/samuelkurmann/cobau.git
+[submodule "SEM5/IOT/iot-hs-2024-group4"]
+	path = SEM5/IOT/iot-hs-2024-group4
+	url = git@gitlab.switch.ch:hslu/edu/bachelor-computer-science/iot/iot-hs-2024/iot-hs-2024-groups/iot-hs-2024-group4.git
+[submodule "SEM5/COBAU/cobau"]
+	path = SEM5/COBAU/cobau
+	url = https://github.com/samuelkurmann/cobau.git

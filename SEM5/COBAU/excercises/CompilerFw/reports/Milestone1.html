@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+    table { font-family: arial, sans-serif;border-collapse: collapse;width: 100% }
+    p { font-family:arial;font-size:120% }
+    td, th { border: 1px solid #dddddd; text-align: left; padding: 8px}
+    td.pass {border: 1px solid #90EE90; background-color: #90EE90;color: #007000}
+    td.fail {border: 1px solid #F08080; background-color: #F08080;color: #700000}
+    tr:nth-child(even) {background-color: #dddddd}
+    </style></head><body><p><b>Test results (score: 0.0 of 20.0 with a starting score of 0):</b></p><table>  <col width="12%">  <col width="13%">  <col width="20%">  <col width="20%">  <col width="5%">  <col width="5%">  <col width="5%">  <col width="5%">  <col width="7%">  <col width="8%">  <tr>    <th>Test case</th>
+    <th>Input</th>
+    <th>Expected Output</th>
+    <th>Actual Output</th>
+    <th>Expected Exitcode</th>
+    <th>Actual Exitcode</th>
+    <th>Score</th>
+    <th>Result</th>
+    <th>Time [ms]</th>
+    <th>Timeout [ms]</th>
+  </tr>
+  <tr>
+    <td>single digit (zero)</td>
+    <td>0<br></td>
+    <td>0</td>
+    <td>Please&nbsp;enter&nbsp;a&nbsp;number:&nbsp;&#191;<br></td>
+    <td>0</td>
+    <td>0</td>
+    <td>4.0</td>
+    <td class="fail">Wrong Answer</td>
+    <td>3</td>
+    <td>500</td>
+  </tr>
+  <tr>
+    <td>single digit (uneven)</td>
+    <td>3<br></td>
+    <td>9</td>
+    <td>Please&nbsp;enter&nbsp;a&nbsp;number:&nbsp;&#191;<br></td>
+    <td>0</td>
+    <td>0</td>
+    <td>4.0</td>
+    <td class="fail">Wrong Answer</td>
+    <td>2</td>
+    <td>500</td>
+  </tr>
+  <tr>
+    <td>two digits (even)</td>
+    <td>22<br></td>
+    <td>66</td>
+    <td>Please&nbsp;enter&nbsp;a&nbsp;number:&nbsp;&#191;<br>&#191;<br></td>
+    <td>0</td>
+    <td>0</td>
+    <td>2.0</td>
+    <td class="fail">Wrong Answer</td>
+    <td>2</td>
+    <td>500</td>
+  </tr>
+  <tr>
+    <td>two digits (uneven)</td>
+    <td>27<br></td>
+    <td>81</td>
+    <td>Please&nbsp;enter&nbsp;a&nbsp;number:&nbsp;&#191;<br>&#191;<br></td>
+    <td>0</td>
+    <td>0</td>
+    <td>2.0</td>
+    <td class="fail">Wrong Answer</td>
+    <td>2</td>
+    <td>500</td>
+  </tr>
+  <tr>
+    <td>text</td>
+    <td>42<br></td>
+    <td>Please&nbsp;enter&nbsp;an&nbsp;integer&nbsp;value:<br>The&nbsp;result&nbsp;of&nbsp;value&nbsp;*&nbsp;3&nbsp;is:&nbsp;126</td>
+    <td>Please&nbsp;enter&nbsp;a&nbsp;number:&nbsp;&#191;<br>&#191;<br></td>
+    <td>0</td>
+    <td>0</td>
+    <td>2.0</td>
+    <td class="fail">Wrong Answer</td>
+    <td>3</td>
+    <td>500</td>
+  </tr>
+  <tr>
+    <td>negative</td>
+    <td>-123<br></td>
+    <td>-369</td>
+    <td>Please&nbsp;enter&nbsp;a&nbsp;number:&nbsp;&#191;<br>&#191;<br>&#191;<br>&#191;<br></td>
+    <td>0</td>
+    <td>0</td>
+    <td>2.0</td>
+    <td class="fail">Wrong Answer</td>
+    <td>2</td>
+    <td>500</td>
+  </tr>
+  <tr>
+    <td>large (positive)</td>
+    <td>1235<br></td>
+    <td>3705</td>
+    <td>Please&nbsp;enter&nbsp;a&nbsp;number:&nbsp;&#191;<br>&#191;<br>&#191;<br>&#191;<br></td>
+    <td>0</td>
+    <td>0</td>
+    <td>1.0</td>
+    <td class="fail">Wrong Answer</td>
+    <td>2</td>
+    <td>500</td>
+  </tr>
+  <tr>
+    <td>large (negative)</td>
+    <td>-1235<br></td>
+    <td>-3705</td>
+    <td>Please&nbsp;enter&nbsp;a&nbsp;number:&nbsp;&#191;<br>&#191;<br>&#191;<br>&#191;<br>&#191;<br></td>
+    <td>0</td>
+    <td>0</td>
+    <td>1.0</td>
+    <td class="fail">Wrong Answer</td>
+    <td>3</td>
+    <td>500</td>
+  </tr>
+  <tr>
+    <td>64-bit (almost maximal positive)</td>
+    <td>3074457345618258602<br></td>
+    <td>9223372036854775806</td>
+    <td>Please&nbsp;enter&nbsp;a&nbsp;number:&nbsp;&#191;<br>&#191;<br>&#191;<br>&#191;<br>&#191;<br>&#191;<br>&#191;<br>&#191;<br>&#191;<br>&#191;<br>&#191;<br>&#191;<br>&#191;<br>&#191;<br>&#191;<br>&#191;<br>&#191;<br>&#191;<br>&#191;<br></td>
+    <td>0</td>
+    <td>0</td>
+    <td>1.0</td>
+    <td class="fail">Wrong Answer</td>
+    <td>2</td>
+    <td>500</td>
+  </tr>
+  <tr>
+    <td>64-bit (maximal negative)</td>
+    <td>-3074457345618258602<br></td>
+    <td>-9223372036854775806</td>
+    <td>Please&nbsp;enter&nbsp;a&nbsp;number:&nbsp;&#191;<br>&#191;<br>&#191;<br>&#191;<br>&#191;<br>&#191;<br>&#191;<br>&#191;<br>&#191;<br>&#191;<br>&#191;<br>&#191;<br>&#191;<br>&#191;<br>&#191;<br>&#191;<br>&#191;<br>&#191;<br>&#191;<br>&#191;<br></td>
+    <td>0</td>
+    <td>0</td>
+    <td>1.0</td>
+    <td class="fail">Wrong Answer</td>
+    <td>2</td>
+    <td>500</td>
+  </tr>
+</table>
+<p><small><b>Disclaimer:</b> The calculated points serve only as an indication of the achieved points. You must check yourself for obvious errors in the evaluation (e.g., test shows green although feature has not been implemented). Also, keep in mind that your submission will be tested against a similar test set with minor differences to check for hard coded results.</small></p>
+</body>
+</html>
