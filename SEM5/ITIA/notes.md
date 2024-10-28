@@ -39,6 +39,48 @@
 - DNS, Mail-, Web-Server
 
 
+## Automatisierungstools 
+
+Sollten immer deklarativ sein.
+
+Verbreitete Automatisierungstools sind Ansible, Puppet, Chef
+
+
+### Ablauf
+
+ist immer derselbe 
+
+1. Endzustand wird definiert (z.B. webserver installieren)
+2. Wenn Zielzustand vorhanden, nichts machen
+3. Ansonsten Zielzustand erreichen
+
+
+### Warum
+
+Schneller, konsistenter, Menschenfehler ausmertzen 
+
+
+### Statische Hosts:
+
+```
+[usa]
+washington1.example.com
+washington2.example.com
+
+[canada]
+ontario1.example.com
+ontario2.example.com
+
+[north-americ:children]
+usa
+canada
+```
+
+## Begriffe 
+
+- **Deklarativ:** legt Zielzustand fest nicht den weg dahin (nicht wie Bash)
+- **Idempotenz:** Endzustand ist immer derselbe, egal ob der Web mehrmals ausgeführt wird.
+- Inventar definiert Sammlung von Hosts, welche Ansible verwaltet (SSH Zieladresse) mit plugins auch dynamisch möglich
 
 
 

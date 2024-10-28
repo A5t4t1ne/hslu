@@ -79,7 +79,7 @@ Scanner (lexer) liest:
 
 current program: 
 
-```ANTLR
+
 grammar Vsl;
 
 // TASK: add each terminal symbol to list of tokens (PROGRAM | DOT | ...)
@@ -95,6 +95,7 @@ BEGIN: 'BEGIN';
 DOT: '.';
 END: 'END';
 
+
 INSTR: [A-Z][a-zA-Z0-9]* ':=' [a-zA-Z0-9]* ';' ;
 
 SEMICOLON: ';';
@@ -105,12 +106,11 @@ NUMBER: '-'? [0-9]+;
 
 WS: [ \t\n\r] -> skip;
 
-// TASK: Add more terminal symbols
-```
+TASK: Add more terminal symbols
+
 
 
 ### Parser 
-
 
 Aus tokens vom Scanner einen abstract Syntax tree generieren.
 
@@ -139,6 +139,7 @@ Aus tokens vom Scanner einen abstract Syntax tree generieren.
 ### Expressions in VSL 
 
 - Punkt-for-Strich
+
 
 
 
